@@ -123,6 +123,8 @@ class PostController extends Controller
     public function getAdminDelete($id)
     {
         $post = Post::find($id);
+        $file_path = public_path("images/postimages/{$post->image_name}");
+        unlink($file_path);
         $post->comment()->delete();
         $post->tags()->detach();
         $post->delete();

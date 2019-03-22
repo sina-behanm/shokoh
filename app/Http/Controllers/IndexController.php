@@ -34,6 +34,8 @@ class IndexController extends Controller
     public function getBottomDelete($id)
     {
         $bottom = Bottom::find($id);
+        $file_path = public_path("images/bottom_body/{$bottom->image_name}");
+        unlink($file_path);
         $bottom->delete();
         return redirect()->back()->with('info','Bottom post deleted');
     }
