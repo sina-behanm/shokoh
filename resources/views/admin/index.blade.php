@@ -7,6 +7,13 @@
             </div>
         </div>
     @endif
+    @if(Session::has('error'))
+        <div class="row">
+            <div class="col-md-4">
+                <p class="alert alert-danger">{{Session::get('error')}}</p>
+            </div>
+        </div>
+    @endif
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .my-card {

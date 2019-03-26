@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use App\Bottom;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -74,9 +75,16 @@ class PostController extends Controller
 
     public function getAdminEdit($id)
     {
+        $user = Auth::user();
         $post =Post::find($id);
-        $tags =Tags::all();
-        return view('admin.edit',['post' => $post,'postId' => $id,'tags' => $tags]);
+        if ($user->can('update',$post))
+        {
+            $tags =Tags::all();
+            return view('admin.edit',['post' => $post,'postId' => $id,'tags' => $tags]);
+        } else
+        {
+            return redirect()->back()->with('error','You are not able to edit this post !!!!');
+        }
     }
 
 
@@ -87,6 +95,10 @@ class PostController extends Controller
             'body' => 'required',
             'image' => 'mimes:jpeg,bmp,png'
         ]);
+        /*
+         * auth user
+         */
+        $user = Auth::user();
         $imagename= $request->file('image')->getClientOriginalName();
         Input::file('image')->move('images/postimages', $imagename);
         $post = new Post([
@@ -95,7 +107,7 @@ class PostController extends Controller
             'content' => $request->input('content')
         ]);
         $post->image_name = $imagename;
-        $post->save();
+        $user->Post()->save($post);
         $post->tags()->attach($request->input('tags'));
         return redirect()->route('admin.index')->with('info','Post Created,Title is:'.$request->input('title'));
     }
@@ -122,13 +134,21 @@ class PostController extends Controller
 
     public function getAdminDelete($id)
     {
+        $user = Auth::user();
         $post = Post::find($id);
-        $file_path = public_path("images/postimages/{$post->image_name}");
-        unlink($file_path);
-        $post->comment()->delete();
-        $post->tags()->detach();
-        $post->delete();
-        return redirect()->route('admin.index')->with('info','Post Deleted');
+        if ($user->can('delete',$post))
+        {
+            $file_path = public_path("images/postimages/{$post->image_name}");
+            unlink($file_path);
+            $post->comment()->delete();
+            $post->tags()->detach();
+            $post->delete();
+            return redirect()->route('admin.index')->with('info','Post Deleted');
+        } else {
+            return redirect()->back()->with('error','You are not able to delete this post !!!!');
+        }
+
+
     }
 
 }

@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->text('content');
             $table->string('image_name');
+            $table->integer('user_id');
         });
     }
 
