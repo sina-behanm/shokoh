@@ -2,9 +2,11 @@
 
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     protected $fillable = ['title','body','content','image_name'];
+    use SoftDeletes;
 
     public function comment()
     {

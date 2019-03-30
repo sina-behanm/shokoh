@@ -23,7 +23,7 @@
         @foreach($tags as $tag)
             <div class="checkbox">
                 <lable>
-                    <input type="checkbox" name="tags[]" value="{{$tag -> id}}">
+                    <input type="checkbox" name="tags[]" value="{{$tag->id}}">
                     {{$tag->name}}
                 </lable>
             </div>
