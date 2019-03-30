@@ -25,6 +25,9 @@
                         <button type="submit" class="btn btn-danger" style="margin-top: 8px">LogOut<span style="padding-left: 15px"></span><i class="fas fa-sign-out-alt"></i></button>
                     </form>
                 </li>
+                <li style="position: absolute; top: -12px; right: 15px">
+                   <a href="#"><img style="height: 45px" src="{{asset('images/admin_images/setting.png')}}" alt="setting"></a>
+                </li>
                 <!-- auth nav bar -->
             </ul>
         </div>
