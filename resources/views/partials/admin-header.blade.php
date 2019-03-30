@@ -7,10 +7,18 @@
                 <li><a href="{{route('admin.student')}}" >Student Panel</a></li>
                 <li><a href="{{route('admin.index.banner')}}">Main window</a></li>
                 <li><a href="{{route('admin.courses')}}">Courses Detail</a></li>
-                <li><a href="{{route('admin.downloads.pdf')}}">Pdf</a></li>
-                <li><a href="#">Word</a></li>
-                <li><a href="{{route('admin.downloads.image')}}">Images</a></li>
-                <li><a href="#">Video</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Downloads <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('admin.downloads.pdf')}}">Pdf</a></li>
+                        <li><a href="{{route('admin.downloads.image')}}">Images</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Disable</li>
+                        <li><a href="#">Word</a></li>
+                        <li><a href="#">Video</a></li>
+                    </ul>
+                </li>
                 <li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
                         @csrf
